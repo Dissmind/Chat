@@ -16,12 +16,14 @@ io.on('connection', (socket) => {
 
 
     socket.on('chat message', (message) => {
-        console.log(`New message: ${message}`)
+        // console.log(`New message: ${message}`)
+
+        io.emit('chat message', message)
     })
 
-    socket.on('disconnect', () => {
-        console.log('disconnect')
-    })
+    // socket.on('disconnect', () => {
+    //     console.log('disconnect')
+    // })
 })
 
 
