@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import io from "socket.io-client"
 
 const Message = ({text}) => {
@@ -67,25 +67,23 @@ export const App = ({}) => {
     ]
     const [messageList, setMessageList] = useState(mockMessageList)
 
+    const socketRef = useRef(null)
 
     useEffect(() => {
-        const socket = io('http://127.0.0.1:3000', {
+        socketRef.current = io('http://127.0.0.1:3000', {
             reconnectionDelayMax: 10000,
         })
 
-        socket.emit('connection', null)
+        socketRef.current.emit('connection', null)
 
-        socket.on('chat message', (message) => {
+        socketRef.current.on('chat message', (message) => {
             setMessageList(prev => [...prev, {text: message}])
         })
     }, [])
 
-    const sendMessage = (message) => {
-        const socket = io('http://127.0.0.1:3000', {
-            reconnectionDelayMax: 10000,
-        })
 
-        socket.emit('chat message', message)
+    const sendMessage = (message) => {
+        socketRef.current.emit('chat message', message)
     }
 
 
