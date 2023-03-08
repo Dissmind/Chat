@@ -1,9 +1,15 @@
 const express = require('express')
+require('dotenv').config({path: '../.env'})
 const http = require('http')
 const { Server } = require('socket.io')
 
 const app = express()
 const server = http.createServer(app)
+
+
+const PORT = process.env.SERVER_PORT
+
+
 const io = new Server(server, {
     cors: {
         origin: '*'
@@ -11,20 +17,19 @@ const io = new Server(server, {
 })
 
 
-io.on('connection', (socket) => {
-    console.log('User connect')
 
+io.on('connection', (socket) => {
+    console.log('user connect')
 
     socket.on('chat message', (message) => {
-        // console.log(`New message: ${message}`)
-
         io.emit('chat message', message)
     })
 
-    // socket.on('disconnect', () => {
-    //     console.log('disconnect')
-    // })
+    socket.on('disconnect', () => {
+        console.log('disconnect')
+    })
 })
+
 
 
 server.listen(3000, () => {
