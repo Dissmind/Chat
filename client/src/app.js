@@ -54,7 +54,7 @@ const Form = ({sendMessage}) => {
 
 export const App = ({}) => {
 
-    const [messageList, setMessageList] = useState([
+    const mockMessageList = [
         {
             text: 'first'
         },
@@ -64,7 +64,8 @@ export const App = ({}) => {
         {
             text: 'third'
         }
-    ])
+    ]
+    const [messageList, setMessageList] = useState(mockMessageList)
 
 
     useEffect(() => {
@@ -73,6 +74,10 @@ export const App = ({}) => {
         })
 
         socket.emit('connection', null)
+
+        socket.on('chat message', (message) => {
+            setMessageList(prev => [...prev, {text: message}])
+        })
     }, [])
 
     const sendMessage = (message) => {
@@ -81,8 +86,6 @@ export const App = ({}) => {
         })
 
         socket.emit('chat message', message)
-
-        console.log('qwe')
     }
 
 
