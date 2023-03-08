@@ -33,5 +33,5 @@ io.on('connection', (socket) => {
 
 
 server.listen(PORT, () => {
-    console.log('Listen on 3000 port.')
+    console.log(`Listen on ${PORT} port.`)
 })
