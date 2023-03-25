@@ -21,14 +21,14 @@ export const App = ({}) => {
 
         socketRef.current.emit('connection', null)
 
-        socketRef.current.on('chat message', (message) => {
+        socketRef.current.on('recordMessage', (message) => {
             setMessageList(prev => [...prev, {text: message}])
         })
     }, [])
 
 
     const sendMessage = (message) => {
-        socketRef.current.emit('chat message', message)
+        socketRef.current.emit('sendMessage', message)
     }
 
 
