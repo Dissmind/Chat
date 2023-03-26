@@ -57,12 +57,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     @SubscribeMessage('sendMessage')
     async handleSendMessage(client: Socket, payload: Message): Promise<void> {
         await this.server.emit('recordMessage', payload)
-
-        console.log(`Send Message`)
-        console.log(payload)
     }
-
-
 }
 
 
