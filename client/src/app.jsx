@@ -3,7 +3,7 @@ import io from "socket.io-client"
 import { Form } from "./chat/form";
 import { ChatList } from "./chat/chat-list";
 import { mockMessageList } from "./mock";
-
+import styled from 'styled-components'
 
 const SERVER_HOST = 'http://127.0.0.1:3000'
 
@@ -33,12 +33,28 @@ export const App = ({}) => {
 
 
     return (
-        <>
-            <div>
-                <ChatList messageList={messageList} />
-            </div>
+        <RootContainer>
+            <AreaStl>
+                <div>
+                    <ChatList messageList={messageList} />
+                </div>
 
-            <Form sendMessage={sendMessage} />
-        </>
+                <Form sendMessage={sendMessage} />
+            </AreaStl>
+        </RootContainer>
     )
 }
+
+
+
+const RootContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+const AreaStl = styled.div`
+  background: #f8f8f8;
+  height: 100vh;
+  width: 30%;
+`
+
