@@ -1,27 +1,10 @@
-import {Inject, Injectable} from "@nestjs/common";
+import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
-import {MessageEntity} from "./database/entities/message.entity";
+import {MessageEntity} from "../database/entities/message.entity";
 import {Repository} from "typeorm";
-import {text} from "express";
-
-
-
-
-export class MessageAddDto {
-    text: string
-}
-
-
-export class MessageReadDto {
-    uuid: string
-    text: string
-    dateAt: string
-}
-
-
-export class MessageListReadDto {
-    list: Array<MessageReadDto>
-}
+import {MessageListReadDto} from "./dto/message-list-read.dto";
+import {MessageReadDto} from "./dto/message-read.dto";
+import {MessageAddDto} from "./dto/message-add.dto";
 
 
 

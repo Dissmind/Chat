@@ -1,20 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import {AppGateway} from "./app.gateway";
+import {MessageGateway} from "./message/message.gateway";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {DatabaseConfiguration} from "./database/databese-configuration";
-import {MessageService} from "./message.service";
-import {MessageController} from "./message.controller";
-import {DataSource} from "typeorm";
-import {MessageEntity} from "./database/entities/message.entity";
+import {MessageController} from "./message/message.controller";
+import {MessageModule} from "./message/message.module";
 
 
-
-export const MessageProviders = [{
-    provide: 'MESSAGE_REPOSITORY',
-    useFactory: (dataSource: DataSource) => dataSource.getRepository(MessageEntity),
-}]
 
 
 
@@ -22,14 +13,9 @@ export const MessageProviders = [{
 @Module({
   imports: [
       TypeOrmModule.forRoot(DatabaseConfiguration),
-
-      TypeOrmModule.forFeature([MessageEntity])
+      MessageModule
   ],
-  controllers: [AppController, MessageController],
-  providers: [AppService, MessageService, AppGateway],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {
-    constructor(private dataSource: DataSource) {
-        // MessageProviders['MESSAGE_REPOSITORY'].useFactory(dataSource)
-    }
-}
+export class AppModule {}

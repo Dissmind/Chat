@@ -1,5 +1,6 @@
 import {Controller, Get} from "@nestjs/common";
-import {MessageListReadDto, MessageService} from "./message.service";
+import {MessageService} from "./message.service";
+import {MessageListReadDto} from "./dto/message-list-read.dto";
 
 
 

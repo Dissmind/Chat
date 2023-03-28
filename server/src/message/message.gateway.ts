@@ -9,7 +9,8 @@ import { Server, Socket } from 'socket.io';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {Inject} from "@nestjs/common";
-import {MessageAddDto, MessageService} from "./message.service";
+import {MessageService} from "./message.service";
+import {MessageAddDto} from "./dto/message-add.dto";
 
 
 
@@ -24,7 +25,7 @@ interface Message {
         origin: '*',
     },
 })
-export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+export class MessageGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
 
     constructor(
         private messageService: MessageService
@@ -45,6 +46,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
     handleDisconnect(client: any): any {
     }
+
 
     @SubscribeMessage('events')
     findAll(@MessageBody() data: any): Observable<WsResponse<number>> {
