@@ -8,6 +8,8 @@ import {
 import { Server, Socket } from 'socket.io';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {Inject} from "@nestjs/common";
+import {MessageAddDto, MessageService} from "./message.service";
 
 
 
@@ -23,6 +25,12 @@ interface Message {
     },
 })
 export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+
+    constructor(
+        private messageService: MessageService
+    ) {}
+
+
     @WebSocketServer()
     server: Server;
 
@@ -56,6 +64,12 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
     @SubscribeMessage('sendMessage')
     async handleSendMessage(client: Socket, payload: Message): Promise<void> {
+
+        const message = new MessageAddDto()
+        message.text = payload.text
+
+        this.messageService.addMessage(message)
+
         await this.server.emit('recordMessage', payload)
     }
 }
