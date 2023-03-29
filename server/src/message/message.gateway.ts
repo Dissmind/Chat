@@ -63,9 +63,9 @@ export class MessageGateway implements OnGatewayInit, OnGatewayConnection, OnGat
         const message = new MessageCreatDto()
         message.content = payload.content
 
-        this.messageService.addMessage(message)
+        const createdMessage = await this.messageService.addMessage(message)
 
-        await this.server.emit('recordMessage', payload)
+        this.server.emit('recordMessage', createdMessage)
     }
 }
 
