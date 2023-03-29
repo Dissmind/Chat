@@ -8,16 +8,9 @@ import {
 import { Server, Socket } from 'socket.io';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {Inject} from "@nestjs/common";
 import {MessageService} from "./message.service";
 import {MessageCreatDto} from "./dto/message-create.dto";
 
-
-
-
-interface Message {
-    content: string
-}
 
 
 @WebSocketGateway({
@@ -66,7 +59,7 @@ export class MessageGateway implements OnGatewayInit, OnGatewayConnection, OnGat
 
 
     @SubscribeMessage('sendMessage')
-    async handleSendMessage(client: Socket, payload: Message): Promise<void> {
+    async handleSendMessage(client: Socket, payload: MessageCreatDto): Promise<void> {
 
         const message = new MessageCreatDto()
         message.content = payload.content
