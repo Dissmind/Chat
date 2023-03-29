@@ -10,7 +10,7 @@ const SERVER_HOST = 'http://127.0.0.1:3000'
 
 
 export const App = ({}) => {
-    const [messageList, setMessageList] = useState(mockMessageList)
+    const [messageList, setMessageList] = useState([])
 
     const socketRef = useRef(null)
 
@@ -24,6 +24,13 @@ export const App = ({}) => {
         socketRef.current.on('recordMessage', (message) => {
             setMessageList(prev => [...prev, message])
         })
+    }, [])
+
+    useEffect(async () => {
+        const response = await fetch(`${SERVER_HOST}/message`)
+        const data = await response.json()
+
+        setMessageList(data.list)
     }, [])
 
 

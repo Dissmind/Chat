@@ -16,7 +16,6 @@ import {MessageCreatDto} from "./dto/message-create.dto";
 @WebSocketGateway({
     cors: {
         origin: '*',
-
     },
 })
 export class MessageGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {

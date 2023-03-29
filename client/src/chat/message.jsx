@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
 
-export const Message = ({content}) => {
+export const Message = ({content, time}) => {
 
     return (
         <div>
             <MessageStl>
                 <MessageTextStl>{content}</MessageTextStl>
-                <TimeStl>15:32</TimeStl>
+                <TimeStl>{time}</TimeStl>
             </MessageStl>
         </div>
     )
