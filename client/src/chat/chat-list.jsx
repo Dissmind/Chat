@@ -33,4 +33,5 @@ const ChatListStl = styled.div`
   flex-direction: column-reverse;
   height: 70vh;
   margin: 0 16px;
+  overflow-y: auto;
 `
