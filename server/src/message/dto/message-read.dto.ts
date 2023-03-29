@@ -1,5 +1,5 @@
 export class MessageReadDto {
     uuid: string
-    text: string
+    content: string
     dateAt: string
 }

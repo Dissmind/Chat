@@ -7,7 +7,7 @@ export const ChatList = ({messageList}) => {
         <ChatListStl>
             {
                 messageList.map(i => (
-                    <Message text={i.text} />
+                    <Message content={i.content} />
                 ))
             }
         </ChatListStl>

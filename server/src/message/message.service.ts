@@ -4,8 +4,7 @@ import {MessageEntity} from "../database/entities/message.entity";
 import {Repository} from "typeorm";
 import {MessageListReadDto} from "./dto/message-list-read.dto";
 import {MessageReadDto} from "./dto/message-read.dto";
-import {MessageAddDto} from "./dto/message-add.dto";
-
+import {MessageCreatDto} from "./dto/message-create.dto";
 
 
 Injectable()
@@ -18,9 +17,9 @@ export class MessageService {
 
 
 
-    async addMessage(messageAddDto: MessageAddDto): Promise<void> {
+    async addMessage(messageAddDto: MessageCreatDto): Promise<void> {
         const message = new MessageEntity()
-        message.content =  messageAddDto.text
+        message.content =  messageAddDto.content
 
         await this.messageRepository.save(this.messageRepository.create(message))
     }
@@ -38,7 +37,7 @@ export class MessageService {
             const dto = new MessageReadDto()
 
             dto.uuid = i.uuid
-            dto.text = i.content
+            dto.content = i.content
             dto.dateAt = i.dateAt.toISOString()
 
             return dto

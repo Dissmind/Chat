@@ -1,11 +1,11 @@
 export const mockMessageList = [
     {
-        text: 'first'
+        content: 'first'
     },
     {
-        text: 'second'
+        content: 'second'
     },
     {
-        text: 'third'
+        content: 'third'
     }
 ]

@@ -22,13 +22,13 @@ export const App = ({}) => {
         socketRef.current.emit('connection', null)
 
         socketRef.current.on('recordMessage', (message) => {
-            setMessageList(prev => [...prev, {text: message}])
+            setMessageList(prev => [...prev, message])
         })
     }, [])
 
 
     const sendMessage = (message) => {
-        socketRef.current.emit('sendMessage', message)
+        socketRef.current.emit('sendMessage', {content: message})
     }
 
 

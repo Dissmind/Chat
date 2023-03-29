@@ -10,19 +10,20 @@ import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {Inject} from "@nestjs/common";
 import {MessageService} from "./message.service";
-import {MessageAddDto} from "./dto/message-add.dto";
+import {MessageCreatDto} from "./dto/message-create.dto";
 
 
 
 
 interface Message {
-    text: string
+    content: string
 }
 
 
 @WebSocketGateway({
     cors: {
         origin: '*',
+
     },
 })
 export class MessageGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -67,8 +68,8 @@ export class MessageGateway implements OnGatewayInit, OnGatewayConnection, OnGat
     @SubscribeMessage('sendMessage')
     async handleSendMessage(client: Socket, payload: Message): Promise<void> {
 
-        const message = new MessageAddDto()
-        message.text = payload.text
+        const message = new MessageCreatDto()
+        message.content = payload.content
 
         this.messageService.addMessage(message)
 
