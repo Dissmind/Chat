@@ -28,11 +28,13 @@ export class MessageService {
     }
 
 
-    async getMessage(): Promise<MessageListReadDto> {
+    async getMessage(take=30, skip=0): Promise<MessageListReadDto> {
         const messageList: Array<MessageEntity> = await this.messageRepository.find({
             order: {
                 dateAt: "ASC"
-            }
+            },
+            take,
+            skip
         })
 
         const response: MessageListReadDto = new MessageListReadDto()

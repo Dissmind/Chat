@@ -14,7 +14,12 @@ const dateFormatParser = (tFormat) => {
     return str
 }
 
-export const ChatList = ({messageList}) => {
+export const ChatList = ({messageList, loadMore}) => {
+
+    const onLoadMore = () => {
+        loadMore()
+    }
+
 
     return (
         <ChatListStl>
@@ -23,6 +28,10 @@ export const ChatList = ({messageList}) => {
                     <Message content={i.content} time={dateFormatParser(i.dateAt)} />
                 ))
             }
+
+            <ButtonContainerStl>
+                <button onClick={onLoadMore}>Load more</button>
+            </ButtonContainerStl>
         </ChatListStl>
     )
 }
@@ -34,4 +43,10 @@ const ChatListStl = styled.div`
   height: 70vh;
   margin: 0 16px;
   overflow-y: auto;
+`
+
+const ButtonContainerStl = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 8px 0px;
 `

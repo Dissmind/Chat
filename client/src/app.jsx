@@ -2,11 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import io from "socket.io-client"
 import { Form } from "./chat/form";
 import { ChatList } from "./chat/chat-list";
-import { mockMessageList } from "./mock";
 import styled from 'styled-components'
 
 const SERVER_HOST = 'http://127.0.0.1:3000'
 
+
+const getMessage = async (take, skip) => {
+    const limitsQuery = `?take=${take}&skip=${skip}`
+
+    const response = await fetch(`${SERVER_HOST}/message${take!=undefined?limitsQuery:''}`)
+    const data = await response.json()
+
+    return data
+}
 
 
 export const App = ({}) => {
@@ -22,16 +30,18 @@ export const App = ({}) => {
         socketRef.current.emit('connection', null)
 
         socketRef.current.on('recordMessage', (message) => {
-            console.log(message)
             setMessageList(prev => [...prev, message])
         })
     }, [])
 
-    useEffect(async () => {
-        const response = await fetch(`${SERVER_HOST}/message`)
-        const data = await response.json()
+    const pageLimit = 10
 
-        setMessageList(data.list)
+    useEffect( () => {
+        (async () => {
+            const data = await getMessage(pageLimit, 0)
+
+            setMessageList(data.list)
+        })()
     }, [])
 
 
@@ -40,11 +50,22 @@ export const App = ({}) => {
     }
 
 
+    const [actualPage, setActualPage] = useState(1)
+
+    const loadMore = () => {
+        (async () => {
+            const data = await getMessage(pageLimit, pageLimit * actualPage)
+            setMessageList(prev => [...prev, ...data.list])
+            setActualPage(prev => prev + 1)
+        })()
+    }
+
+
     return (
         <RootContainer>
             <AreaStl>
                 <div>
-                    <ChatList messageList={messageList} />
+                    <ChatList messageList={messageList} loadMore={loadMore} />
                 </div>
 
                 <Form sendMessage={sendMessage} />

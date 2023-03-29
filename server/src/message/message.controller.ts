@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post} from "@nestjs/common";
+import {Body, Controller, Get, Post, Query} from "@nestjs/common";
 import {MessageService} from "./message.service";
 import {MessageListReadDto} from "./dto/message-list-read.dto";
 import {MessageCreatDto} from "./dto/message-create.dto";
@@ -14,8 +14,8 @@ export class MessageController {
 
 
     @Get()
-    async getMessage(): Promise<MessageListReadDto> {
-        const messageList: MessageListReadDto = await this.messageService.getMessage()
+    async getMessage(@Query('take') take: number, @Query('skip') skip: number): Promise<MessageListReadDto> {
+        const messageList: MessageListReadDto = await this.messageService.getMessage(take, skip)
 
         return messageList
     }
