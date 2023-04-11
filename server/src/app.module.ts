@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import {DatabaseConfiguration} from "./database/database-configuration";
 import {MessageController} from "./message/message.controller";
 import {MessageModule} from "./message/message.module";
+import {AuthModule} from "./auth/auth.module";
 
 
 
@@ -13,7 +14,8 @@ import {MessageModule} from "./message/message.module";
 @Module({
   imports: [
       TypeOrmModule.forRoot(DatabaseConfiguration),
-      MessageModule
+      MessageModule,
+      AuthModule
   ],
   controllers: [],
   providers: [],
