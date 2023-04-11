@@ -2,6 +2,7 @@ import {
     TypeOrmModuleOptions
 } from "@nestjs/typeorm";
 import {MessageEntity} from "./entities/message.entity";
+import {UserEntity} from "./entities/user.entity";
 
 
 
@@ -16,7 +17,8 @@ export const DatabaseConfiguration: TypeOrmModuleOptions = {
 
 
     entities: [
-        MessageEntity
+        MessageEntity,
+        UserEntity
     ],
 
 
