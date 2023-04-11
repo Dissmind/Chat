@@ -1,4 +1,4 @@
-export const Nomatch = () => {
+export const NomatchPage = () => {
     return (
         <>
             <h1 style={{'text-align': 'center'}}>Error 404.</h1>
