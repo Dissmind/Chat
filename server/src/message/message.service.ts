@@ -19,10 +19,9 @@ export class MessageService {
 
     async addMessage(messageAddDto: MessageCreatDto): Promise<MessageEntity> {
         const message = new MessageEntity()
-        message.content =  messageAddDto.content
+        message.content = messageAddDto.content
 
-        const createdMessage = this.messageRepository.create(message)
-        await this.messageRepository.save(createdMessage)
+        const createdMessage = await this.messageRepository.save(message)
 
         return createdMessage
     }

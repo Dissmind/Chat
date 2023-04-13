@@ -1,11 +1,11 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
 
 @Entity()
 export class UserEntity {
     @PrimaryGeneratedColumn("uuid")
     uuid: string
 
-    @Column()
+    @Column({unique: true})
     userName: string
 
     @Column()

@@ -14,7 +14,7 @@ export class AuthService {
     constructor(
         private userService: UserService,
         private jwtService: JwtService,
-        @InjectRepository(MessageEntity)
+        @InjectRepository(UserEntity)
         private userRepository: Repository<UserEntity>
     ) {}
 
@@ -38,10 +38,12 @@ export class AuthService {
         // TODO: validation
         const user = new UserEntity()
         user.userName = dto.nickname
-        user.passwordHash = await bcrypt.hash(dto.password, passwordSalt)
+        // TODO: не работает hash
+        // user.passwordHash = await bcrypt.hash(dto.password, passwordSalt)
+        user.passwordHash = dto.password
 
-        const createdUserEntity: UserEntity = await this.userRepository.create(user)
-        await this.userRepository.save(createdUserEntity)
+        console.log(user)
+        const createdUserEntity = await this.userRepository.save(user)
 
         return createdUserEntity
     }
