@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import { ChatList } from "../chat/chat-list";
 import { Form } from "../chat/form";
 import styled from "styled-components";
+import { ChatDialogs } from "../chat/chat-dialogs";
 
 export const SERVER_HOST = 'http://127.0.0.1:3000'
 
@@ -66,7 +67,7 @@ export const ChatPage = () => {
         <RootContainer>
             <AreaStl>
                 <SidePanelContainer>
-
+                    <ChatDialogs />
                 </SidePanelContainer>
 
                 <ChatContainer>
