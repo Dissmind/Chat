@@ -65,11 +65,14 @@ export const ChatPage = () => {
     return (
         <RootContainer>
             <AreaStl>
-                <div>
-                    <ChatList messageList={messageList} loadMore={loadMore} />
-                </div>
+                <SidePanelContainer>
 
-                <Form sendMessage={sendMessage} />
+                </SidePanelContainer>
+
+                <ChatContainer>
+                  <ChatList messageList={messageList} loadMore={loadMore} />
+                  <Form sendMessage={sendMessage} />
+                </ChatContainer>
             </AreaStl>
         </RootContainer>
     )
@@ -84,5 +87,15 @@ const RootContainer = styled.div`
 const AreaStl = styled.div`
   background: #f8f8f8;
   height: 100vh;
-  width: 30%;
+  width: 70%;
+    
+  display: flex;
+`
+
+const SidePanelContainer = styled.div`
+  width: 40%;
+  height: 100vh;
+`
+const ChatContainer = styled.div`
+  width: 60%;
 `

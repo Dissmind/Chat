@@ -2,9 +2,30 @@ import styled from "styled-components";
 import { useState } from "react";
 
 
+const registrationFetch = async (userName, password) => {
+  const createDto = {
+    nickname: userName,
+    password: password
+  }
+
+  const url = `http://localhost:3000/auth/registration`
+
+  const createdUserData = await fetch(url, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(createDto)
+  })
+
+  const createdUser = await createdUserData.json()
+
+  return createdUser
+}
+
 export const RegistrationPage = () => {
 
-  const [isValidation, setIsValidation] = useState(false)
+  const [isValidationCorrect, setIsValidationCorrect] = useState(true)
   const [isShowMessageValidationError, setIsShowMessageValidationError] = useState(false)
 
 
@@ -14,9 +35,14 @@ export const RegistrationPage = () => {
 
   }
 
-  const onRegister = () => {
+  const [userNameInput, setUserNameInput] = useState('')
+  const [passwordInput, setPasswordInput] = useState('')
+  const [passwordRepeatInput, setPasswordRepeatInput] = useState('')
 
-    if (!isValidation) {
+
+  const onRegister = async () => {
+
+    if (!isValidationCorrect) {
       // TODO: display message about validation error
       setIsShowMessageValidationError(true)
 
@@ -27,7 +53,7 @@ export const RegistrationPage = () => {
       return
     }
 
-
+    const registeredUser = await registrationFetch(userNameInput, passwordInput)
   }
 
 
@@ -39,17 +65,17 @@ export const RegistrationPage = () => {
 
         <InputContainerStl>
           <LabelStl>Nickname:</LabelStl>
-          <InputStl type="text" />
+          <InputStl type="text" onChange={e => setUserNameInput(e.target.value)} value={userNameInput} />
         </InputContainerStl>
 
         <InputContainerStl>
           <LabelStl>Password:</LabelStl>
-          <InputStl type="password" />
+          <InputStl type="password" onChange={e => setPasswordInput(e.target.value)} value={passwordInput} />
         </InputContainerStl>
 
         <InputContainerStl>
           <LabelStl>Password repeat:</LabelStl>
-          <InputStl type="password" />
+          <InputStl type="password" onChange={e => setPasswordRepeatInput(e.target.value)} value={passwordRepeatInput} />
         </InputContainerStl>
 
         {

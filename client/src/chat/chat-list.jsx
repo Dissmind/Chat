@@ -23,11 +23,13 @@ export const ChatList = ({messageList, loadMore}) => {
 
     return (
         <ChatListStl>
-            {
-                messageList.map(i => (
-                    <Message content={i.content} time={dateFormatParser(i.dateAt)} />
-                ))
-            }
+            <div>
+                {
+                    messageList.map(i => (
+                        <Message content={i.content} time={dateFormatParser(i.dateAt)} />
+                    ))
+                }
+            </div>
 
             <ButtonContainerStl>
                 <button onClick={onLoadMore}>Load more</button>
@@ -43,6 +45,7 @@ const ChatListStl = styled.div`
   height: 70vh;
   margin: 0 16px;
   overflow-y: auto;
+  width: 100%;
 `
 
 const ButtonContainerStl = styled.div`
